@@ -41,7 +41,7 @@ export const Register = () => {
       lastName,
       email,
       password,
-      age,
+      age: Number(age),
     });
     console.log(result);
     if (result.error) {

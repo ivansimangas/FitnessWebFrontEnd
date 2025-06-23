@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 
 import { useAuth } from "./AuthContext";
 
-/** A form that allows users to log into an existing account. */
+// A form that allows users to log into an existing account.
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();

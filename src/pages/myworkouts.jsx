@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { deleteWorkout, getWorkoutsById } from "../api/workout";
+import { deleteWorkout, getWorkoutsByUserId } from "../api/workout";
 import { useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 
-const VideoIframe = () => {
+const VideoIframeUser = () => {
   const token = useAuth();
   const { workout, setWorkout } = useState();
 
   let params = useParams();
   useEffect(() => {
     const callWorkout = async () => {
-      const result = await getWorkoutsById(params.id);
+      const result = await getWorkoutsByUserId(params.id);
       setWorkout(result);
     };
     callWorkout();
@@ -50,4 +50,4 @@ const VideoIframe = () => {
   );
 };
 
-export default VideoIframe;
+export default VideoIframeUser;

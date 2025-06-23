@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { addWorkout, getWorkoutsById } from "../api/workout";
+import { deleteWorkout, getWorkoutsById } from "../api/workout";
 import { useParams } from "react-router";
 import { useAuth } from "../auth/AuthContext";
 
 const VideoIframe = () => {
   const token = useAuth();
   const { workout, setWorkout } = useState();
+
   let params = useParams();
   useEffect(() => {
     const callWorkout = async () => {
@@ -15,9 +16,9 @@ const VideoIframe = () => {
     callWorkout();
     workout.description;
   }, []);
-  const handleAddWorkout = async () => {
+  const handleDeleteWorkout = async () => {
     try {
-      await addWorkout(params.id, token);
+      await deleteWorkout(params.id, token);
     } catch (error) {
       console.error("Error deleting workout:", error);
     }
@@ -43,7 +44,7 @@ const VideoIframe = () => {
             <p>{workout.description}</p>s
           </div>
         </div>
-        <button onClick={handleAddWorkout}>add workOut</button>
+        <button onClick={handleDeleteWorkout}>add workOut</button>
       </div>
     </div>
   );

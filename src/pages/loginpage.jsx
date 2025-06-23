@@ -8,11 +8,11 @@ export const Login = () => {
   const [error, setError] = useState("");
 
   const onEmailChange = (event) => {
-    let value = event.taget.value;
+    let value = event.target.value;
     setEmail(value);
   };
-  const onPAsswordchange = (event) => {
-    let value = event.taget.value;
+  const onPasswordchange = (event) => {
+    let value = event.target.value;
     setPassword(value);
   };
   const onLoginEvent = async () => {
@@ -34,15 +34,14 @@ export const Login = () => {
       {error && <p className="error">{error}</p>}
       <div className="">
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" onChange={onEmailChange} value={email} />
-        <lable htmlFor="password">Password</lable>
+        <input type="text" id="email" onChange={onEmailChange} value={email} />
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          onChange={onPAsswordchange}
+          onChange={onPasswordchange}
           value={password}
         />
-        d
         <button className="" onClick={onLoginEvent}>
           Login
         </button>

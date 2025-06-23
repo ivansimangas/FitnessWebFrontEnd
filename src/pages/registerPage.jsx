@@ -67,11 +67,11 @@ export const Register = () => {
           id="registerPassword"
           onChange={onPasswordChange}
         />
-        {/**inbuilt function similar to above function forwith event handler */}
+        {/**inbuilt function similar to above function for  event handler */}
         <label htmlFor="age">Selet Age</label>
         <select id="age" onChange={(event) => setAge(event.target.value)}>
           <option value="" disabled>
-            --Select Age--
+            --Sex--
           </option>
           {agePicker.map((number) => (
             <option key={number} value={number}>

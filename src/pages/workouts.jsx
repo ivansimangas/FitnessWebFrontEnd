@@ -1,52 +1,70 @@
+import "../styles/workouts.css";
 import { useState, useEffect } from "react";
-import { addWorkout, getWorkoutsById } from "../api/workout";
-import { useParams } from "react-router";
-import { useAuth } from "../auth/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const VideoIframe = () => {
-  const token = useAuth();
-  const { workout, setWorkout } = useState();
-  let params = useParams();
+import chest from "../imgSource/chest.png";
+import arms from "../imgSource/arms.png";
+import back from "../imgSource/back.png";
+import legs from "../imgSource/legs.png";
+import shoulders from "../imgSource/shoulders.png";
+
+const Workouts = () => {
+  const [workouts, setWorkouts] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const callWorkout = async () => {
-      const result = await getWorkoutsById(params.id);
-      setWorkout(result);
+    const fetchWorkouts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5432/api/workouts");
+        setWorkouts(response.data);
+      } catch (error) {
+        console.error("Failed to fetch workouts", error);
+      }
     };
-    callWorkout();
-    workout.description;
+    fetchWorkouts();
   }, []);
-  const handleAddWorkout = async () => {
-    try {
-      await addWorkout(params.id, token);
-    } catch (error) {
-      console.error("Error deleting workout:", error);
-    }
+
+  const onImgClick = (id) => {
+    navigate(`/workouts/${id}`);
   };
 
   return (
-    <div>
-      <div>
-        <h2>chest workout</h2>
-        <iframe
-          width="560"
-          height="315"
-          src={workout.videoUrl}
-          title={workout.title}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-        <div>
-          <h2>description of workouts</h2>
-          <div>
-            <p>{workout.description}</p>s
-          </div>
+    <div className="workouts">
+      <h1>All Workouts</h1>
+
+      <div className="workout-images">
+        <div className="workout-image" onClick={() => onImgClick(1)}>
+          <img src={chest} alt="Chest Workout" />
+          <h2>Chest</h2>
         </div>
-        <button onClick={handleAddWorkout}>add workOut</button>
+        <div className="workout-image" onClick={() => onImgClick(2)}>
+          <img src={arms} alt="Arms Workout" />
+          <h2>Arms</h2>
+        </div>
+        <div className="workout-image" onClick={() => onImgClick(3)}>
+          <img src={back} alt="Back Workout" />
+          <h2>Back</h2>
+        </div>
+        <div className="workout-image" onClick={() => onImgClick(4)}>
+          <img src={legs} alt="Legs Workout" />
+          <h2>Legs</h2>
+        </div>
+        <div className="workout-image" onClick={() => onImgClick(5)}>
+          <img src={shoulders} alt="Shoulders Workout" />
+          <h2>Shoulders</h2>
+        </div>
       </div>
+
+      <ul className="workout-list">
+        {workouts.map((workout) => (
+          <li key={workout.id}>
+            <Link to={`/workouts/${workout.id}`}>{workout.name}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
-export default VideoIframe;
+export default Workouts;

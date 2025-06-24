@@ -8,11 +8,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "aos": "^2.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.1",
     "axios": "^1.10.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router": "^7.6.0",
+    "aos": "^2.3.4",
     "swiper": "^11.2.8"
   },
   "devDependencies": {

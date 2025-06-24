@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom"; // Make sure this is react-router-dom
 import "../styles/Navbar.css";
+
 export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
 
-  // Listen for scroll only on homepage
   useEffect(() => {
     if (location.pathname === "/") {
       const handleScroll = () => {
-        const offset = window.scrollY;
-        setScrolled(offset > 80);
+        setScrolled(window.scrollY > 80);
       };
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     } else {
-      setScrolled(false); // Disable scroll effect on other pages
+      setScrolled(false);
     }
   }, [location]);
 
-  // Check if we're on home
   const isHome = location.pathname === "/";
 
   return (
@@ -30,12 +28,12 @@ export default function Navbar() {
     >
       <div className="navbar-container">
         <div className="logo">
-          <Link to="/">FitnessPro</Link>{" "}
+          <Link to="/">FitnessPro</Link>
         </div>
         <nav className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/workouts">Workouts</Link>
-          <Link to="/account">My Workouts</Link>
+          {/* No account link here since you don’t have that page yet */}
           <Link to="/login">Logout</Link>
         </nav>
       </div>

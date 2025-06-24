@@ -1,3 +1,4 @@
+import "../styles/login.css";
 import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
@@ -11,7 +12,7 @@ export const Login = () => {
     let value = event.target.value;
     setEmail(value);
   };
-  const onPasswordchange = (event) => {
+  const onPasswordChange = (event) => {
     let value = event.target.value;
     setPassword(value);
   };
@@ -26,29 +27,43 @@ export const Login = () => {
       setError(result.error.message);
     } else {
       console.log("Login Successful!", result);
+      // You might want to navigate to another page here after login success
     }
   };
+
   return (
-    <div className="">
-      <h1 className="">Log in to your account</h1>
+    <div className="login-page">
+      <h1>Log in to your account</h1>
       {error && <p className="error">{error}</p>}
-      <div className="">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onLoginEvent();
+        }}
+      >
         <label htmlFor="email">Email</label>
-        <input type="text" id="email" onChange={onEmailChange} value={email} />
+        <input
+          type="text"
+          id="email"
+          onChange={onEmailChange}
+          value={email}
+          autoComplete="username"
+          required
+        />
         <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
-          onChange={onPasswordchange}
+          onChange={onPasswordChange}
           value={password}
+          autoComplete="current-password"
+          required
         />
-        <button className="" onClick={onLoginEvent}>
-          Login
-        </button>
-        <p className="">
-          Need an account? <a href="/register">Register</a>
-        </p>
-      </div>
+        <button type="submit">Login</button>
+      </form>
+      <p>
+        Need an account? <a href="/register">Register</a>
+      </p>
     </div>
   );
 };
